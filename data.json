@@ -1,8 +1,19 @@
 [
     {
-        "title": "One Piece",
+        "url": "https://komikindo.co/manga/jujutsu-kaisen/",
+        "title": "Jujutsu Kaisen",
+        "description": {
+            "about": "Manga Jujutsu Kaisen Yuuji adalah seorang jenius di jalur dan lapangan. Tapi dia memiliki minat nol, dia senang sebagai clam di Klub Penelitian Ilmu Ghaib. Meskipun Dia di Klub hanya untuk Iseng, Hal-hal menjadi serius ketika semangat nyata muncul di sekolah! Hidup akan menjadi sangat aneh Di SMA Negeri Sugisawa #3\n",
+            "status": "Ongoing",
+            "type": "Manga",
+            "released": "Mar 5, 2018",
+            "author": "Gege, Akutami (Story & Art)",
+            "postedOn": "September 19, 2018",
+            "postedBy": "komikindo"
+        },
         "statistic": {
-            "total_chapter": "\nChapter {{number}}\n{{date}}\n"
+            "total_chapter": 265,
+            "new_chapter": "Chapter 261"
         }
     }
 ]

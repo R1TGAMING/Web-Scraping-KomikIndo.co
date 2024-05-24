@@ -18,25 +18,48 @@ with open(f"./data.json", "w") as f :
   print("success")
   json.dump(list, f, indent = 4)"""
   
-def manga_read(name : str) :
+def get_manga(name : str) :
   split = name.split()
   join = "-".join(split)
   res =  requests.get(f"https://komikindo.co/manga/{join}/")
   data = []
   soup = BeautifulSoup(res.text, "html.parser")
+
   def get_total_chapter() :
     
-     for i in soup.find_all("li", {"data-num" : True}):
-       find_chapter = i.find("a", {"href" : True})
+     for i in soup.find_all("div", {"id" : "chapterlist"}):
+       
        jsons = {
-         "total_chapter" : find_chapter.text
+         "total_chapter" : len(i.find_all("li", {"data-num" : True})),
+         "new_chapter" : soup.find("span", {"class" : "epcur epcurlast"}).text
        }
        return jsons
+
+  def get_description() :
+    get_data = soup.find("tbody").find_all("td")
+    komikindo = soup.find("i", {"itemprop" : "name"})
+    desc = soup.find("div", {"itemprop" : "description"})
+    jsons = {
+      "about" : desc.find("p").text,
+      "status" : get_data[1].text,
+      "type" : get_data[3].text,
+      "released" : get_data[5].text,
+      "author" : get_data[7].text,
+      "postedOn" : get_data[11].find("time").text,
+      "postedBy" : komikindo.text,
+    }
+    return jsons
+    
+    
+
   jsons = {
+    "url" : res.url,
     "title" : soup.find("h1", class_="entry-title").text,
+    "description" : get_description(),
     "statistic" : get_total_chapter()
   }
   data.append(jsons)
   with open("data.json", "w") as f :
     json.dump(data, f, indent=4)
-manga_read("one piece")
+    
+get_manga("jujutsu kaisen")
