@@ -61,5 +61,30 @@ def get_manga(name : str) :
   data.append(jsons)
   with open("data.json", "w") as f :
     json.dump(data, f, indent=4)
+
+def get_chapter(name : str, chapter : str) :
+  split2 = chapter.split()
+  join2 = "-".join(split2)
+  split = name.split()
+  join = "-".join(split)
+  data = []
+  res =  requests.get(f"https://komikindo.co/{join}-{join2}/")
+  print(res.url)
+  soup = BeautifulSoup(res.content, "html.parser")
+  for i in soup.find_all("img", {"data-tai" : True}) :
+    jsons = {
+      "src" : i["src"],
+      "page" : i["data-tai"]
+    }
+    data.append(jsons)
+  with open("get_chapter.json", "w") as f :
+    json.dump(data, f, indent=4)
+    print("success")
     
-get_manga("jujutsu kaisen")
+    
+def all_manga(name : str, chapter : str) :
+  get_chapter(name, chapter)
+  get_manga(name)
+
+  
+all_manga("one piece", "chapter 1115")
